@@ -1,0 +1,62 @@
+.header-container {
+    height: 120px;
+    background-color: #ffd400;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.header-row-1 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.header-row-2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.icon-container {
+    /* Thiết lập kích thước, màu sắc và nội dung cho icon */
+    height: 100px;
+    width: 100px;
+    padding: 20px;
+}
+
+.store-name {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.search-bar {
+    height: 50px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    input {
+        border: none;
+        outline: none;
+    }
+}
+
+.d-flex {
+    display: flex;
+    flex-direction: row;
+}
+
+.order {
+    display: flex;
+    flex-direction: row;
+}
+/* Thiết lập kiểu dáng cho sản phẩm */
+.product {
+    width: calc(33.33% - 10px);
+    margin-bottom: 20px;
+    /* Thiết lập kích thước, kiểu dáng và màu sắc cho sản phẩm */
+}
