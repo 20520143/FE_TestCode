@@ -18,7 +18,6 @@ function Home() {
         const temp = { ...products[index], quantity: 1 };
         productsinCart = [...productsinCart, temp];
         setCartItems(productsinCart);
-        console.log(productsinCart);
         statebutton[index] = true;
         setStatebutton(statebutton);
         price = price + products[index].price;
@@ -71,7 +70,7 @@ function Home() {
             try {
                 await axios({
                     method: 'GET',
-                    url: 'http://localhost:8080/api/product/getproduct',
+                    url: 'https://goldensnearker.onrender.com/api/product/getproduct',
                 }).then((res) => {
                     setProducts(res.data);
                     console.log(res.data);
