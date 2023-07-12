@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { Card, CardMedia, CardContent, Typography, Rating, Button, Grid, Skeleton } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Typography, Button, Grid } from '@mui/material';
 import axios from 'axios';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import check from './img/check.png';
@@ -42,7 +42,7 @@ function Home() {
         Save();
     };
     const minusQuantity = (index) => {
-        if (productsinCart[index].quantity == 1) {
+        if (productsinCart[index].quantity === 1) {
             removeToCart(index);
         } else {
             price = price - productsinCart[index].price;
@@ -181,7 +181,7 @@ function Home() {
                                                 {product.price}
                                             </Typography>
                                         </Grid>
-                                        {statebutton[index] == true ? (
+                                        {statebutton[index] === true ? (
                                             <Grid
                                                 container
                                                 justifyContent="center"
@@ -250,14 +250,14 @@ function Home() {
                                 ></AttachMoneyIcon>
 
                                 <Typography style={Title}>
-                                    {productsinCart.length == 0 ? 0 : price.toFixed(2)}
+                                    {productsinCart.length === 0 ? 0 : price.toFixed(2)}
                                 </Typography>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid style={{ height: '550px', overflow: 'auto', overflowX: 'hidden', scrollbarColor: 'transparent' }}>
-                    {productsinCart.length == 0 ? (
+                    {productsinCart.length === 0 ? (
                         <Grid container>
                             <Typography style={{ fontWeight: '200', width: 'auto' }}>Your cart is empty.</Typography>
                         </Grid>
