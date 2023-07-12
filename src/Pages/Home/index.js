@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Card, CardMedia, CardContent, Typography, Rating, Button, Grid, Skeleton } from '@mui/material';
+import axios from 'axios';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import check from './img/check.png';
 import minus from './img/minus.png';
@@ -10,26 +11,6 @@ import trash from './img/trash.png';
 import { Theme, Title } from '~/components/GlobalStyles/theme.js';
 
 function Home() {
-    let products = [
-        {
-            id: 1,
-            image: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png',
-            name: 'Nike Air Zoom Pegasus 36',
-            description:
-                'The iconic Nike Air Zoom Pegasus 36 offers more cooling and mesh that targets breathability across high-heat areas. A slimmer heel collar and tongue reduce bulk, while exposed cables give you a snug fit at higher speeds.',
-            price: 108.97,
-            color: '#e1e7ed',
-        },
-        {
-            id: 2,
-            image: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-shield-mens-running-shoe-24FBGb__1_-removebg-preview.png',
-            name: 'Nike Air Zoom Pegasus 36 Shield',
-            description:
-                'The Nike Air Zoom Pegasus 36 Shield gets updated to conquer wet routes. A water-repellent upper combines with an outsole that helps create grip on wet surfaces, letting you run in confidence despite the weather.',
-            price: 89.97,
-            color: '#4D317F',
-        },
-    ];
     let [productsinCart, setCartItems] = useState([]);
     let [statebutton, setStatebutton] = useState([]);
     let [price, setprice] = useState(0);
@@ -78,7 +59,7 @@ function Home() {
         sessions.statebutton = statebutton;
         sessionStorage.setItem('cartItems', JSON.stringify(sessions));
     };
-    // const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     useEffect(() => {
         const sessions = JSON.parse(sessionStorage.getItem('cartItems'));
         if (sessions) {
@@ -86,20 +67,20 @@ function Home() {
             setCartItems(sessions.productsinCart);
             setStatebutton(sessions.statebutton);
         }
-        //     async function fetchData() {
-        //         try {
-        //             await axios({
-        //                 method: 'GET',
-        //                 url: 'http://localhost:8080/product',
-        //             }).then((res) => {
-        //                 setProducts(res.data);
-        //                 console.log(res.data);
-        //             });
-        //         } catch (error) {
-        //             console.error(error);
-        //         }
-        //     }
-        //     fetchData();
+        async function fetchData() {
+            try {
+                await axios({
+                    method: 'GET',
+                    url: 'http://localhost:8080/api/product/getproduct',
+                }).then((res) => {
+                    setProducts(res.data);
+                    console.log(res.data);
+                });
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        fetchData();
     }, []);
 
     //Card our product
@@ -286,7 +267,12 @@ function Home() {
                                 <>
                                     <Grid container spacing={2} style={{ paddingBottom: '16px' }}>
                                         <Grid item container xs={5}>
-                                            <Grid container alignItems="center" justifyContent="center">
+                                            <Grid
+                                                container
+                                                alignItems="center"
+                                                justifyContent="center"
+                                                style={{ overflow: 'visible' }}
+                                            >
                                                 <Grid
                                                     style={{
                                                         background: product.color,
@@ -294,20 +280,24 @@ function Home() {
                                                         width: '100px',
                                                         height: '100px',
                                                         position: 'relative',
+                                                        overflow: 'visible',
                                                     }}
-                                                ></Grid>
-                                                <img
-                                                    src={product.image}
-                                                    style={{
-                                                        position: 'absolute',
-                                                        marginBottom: '50px',
-                                                        objectFit: 'contain',
-                                                        width: '150px',
-                                                        height: '150px',
-                                                        transform: 'rotate(-24deg)',
-                                                        marginLeft: '-12px',
-                                                    }}
-                                                ></img>
+                                                >
+                                                    <img
+                                                        src={product.image}
+                                                        style={{
+                                                            marginBottom: '50px',
+                                                            objectFit: 'contain',
+                                                            width: '155px',
+                                                            height: '155px',
+                                                            transform: 'rotate(-24deg)',
+                                                            marginLeft: '-12px',
+                                                            position: 'absolute',
+                                                            right: '-26%',
+                                                            top: '-50%',
+                                                        }}
+                                                    ></img>
+                                                </Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item container direction="column" xs={7} spacing={1}>
@@ -428,7 +418,7 @@ function Home() {
     }
     return (
         <>
-            <Grid container justifyContent="center" alignItems="center" spacing={2}>
+            <Grid container justifyContent="center" alignItems="center" spacing={2} style={{ height: '100vh' }}>
                 <OurProduct></OurProduct>
                 <YourCart></YourCart>
             </Grid>
